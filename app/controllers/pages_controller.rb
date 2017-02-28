@@ -18,7 +18,17 @@ class PagesController < ApplicationController
   end
   
   def joinGame
-    @game.addPlayer(params[:name], params[:access_code])
+    gameFound = false
+    count = 0
+    Game.instances.each do |x|
+      if x.gameCode === params[:access_code]
+        gameFound = true
+        Game.instances[count].addPlayer(params[:name], params[:access_code])
+      end
+      count += 1
+      redirect_to action: "lobby", :code => params[:access_code]
+    end
+    render html: "'#{params[:access_code]}' is not a valid access code! Try again" unless gameFound
   end
 
   def game
