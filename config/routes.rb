@@ -4,5 +4,7 @@ Rails.application.routes.draw do
   get '/new', to:'pages#new'
   post '/new', to:'pages#createGame'
   get '/join', to: 'pages#join'
+  post '/join', to:'pages#joinGame'
+  get '/lobby', to: 'pages#lobby'
   get '/game', to:'pages#game'
 end

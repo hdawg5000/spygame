@@ -7,24 +7,25 @@ class Game
         attr_accessor :instances
     end
   
-    @players = {}
-  
-    attr_accessor :gameCode, :adminName, :playerList
+    attr_accessor :gameCode, :adminName, :players
     
     def initialize(adminName)
+        @players = {}
         adminName.capitalize!
         @adminName = adminName
-        @gameCode = generateJoinCode
-        addPlayerToGame(@adminName, @gameCode, true)
+        @gameCode = generateAccessCode
+        @players[@adminName] = CreatePlayer.new(@adminName, true, @gameCode)
         self.class.instances << self
     end
     
-    def generateJoinCode
+    def generateAccessCode
         return ('a'..'z').to_a.shuffle[0..5].join
     end
     
-    def addPlayerToGame(name, code, isAdmin)
-        @playerList[name] = CreatePlayer.new(name, isAdmin)
+    def addPlayer(name, gameCode)
+      if (gameCode === @gameCode)
+        @players[name] = CreatePlayer.new(name, false, gameCode)
+      end
     end
 
 end

@@ -1,2 +1,10 @@
-<h1>Pages#join</h1>
-<p>Find me in app/views/pages/join.html.erb</p>
+<h1>Join a game</h1>
+<%= form_tag("/join", method: "post") do %>
+  <%= label_tag :access_code %>
+  <%= text_field_tag :access_code %>
+  <br><br>
+  <%= label_tag :name %>
+  <%= text_field_tag :name %>
+  <br><br>
+  <%= submit_tag("Join Game") %>
+<% end %>
